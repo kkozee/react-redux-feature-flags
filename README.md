@@ -1,17 +1,19 @@
 # Feature Flag Component for React/Redux
 
-### Purpose
+## Purpose
 
 This package works with React and Redux to provide an easy-to-use feature wrapping component.
 
-### Installation
+## Installation
 
 Using [npm](https://www.npmjs.com/):
 ```
   $ npm install --save react-router
 ```
 
-### Use
+## Setup
+
+### Add Reducer to Project
 
 To utilize the `featureFlagsReducer`, you must first import it into your project and combine with your other project reducers using Redux's `combineReducers` method:
 
@@ -27,8 +29,9 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
-``` 
+```
 
+### Declare Feature Flags
 It is recommended that you create a `features.js` file in the root directory of your project:
 
 ```js
@@ -52,6 +55,8 @@ You can then import your features into to your `index.js` file (example using ES
   ****************************/
   store.dispatch(addFeatureFlags(features));
 ```
+
+### Treat Component as a Feature
 
 Finally, you can wrap your feature in the `Feature` component and pass it a flag defined in your `features.js`. If the flag is truthy, the children of the `Feature` component will render:
 
