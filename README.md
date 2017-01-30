@@ -1,28 +1,65 @@
-# Boilerplate for creating React Npm packages with ES2015
+# Feature Flag Component for React/Redux
 
-The package is based on [npm-base](https://github.com/kadirahq/npm-base) package by [Kadira](https://github.com/kadirahq) which is really great when you want to prepare Npm package. This one is prepared to be used as a starter point for React components which needs to be published on Npm.
+### Purpose
 
-It includes linting with [ESLint](http://eslint.org/) and testing with [Mocha](https://mochajs.org/), [Enzyme](http://airbnb.io/enzyme/) and [JSDOM](https://github.com/tmpvar/jsdom).
+This package works with React and Redux to provide an easy-to-use feature wrapping component.
 
-Also there is of course ES6 transpilation.
+### Installation
 
-## Usage
+Using [npm](https://www.npmjs.com/):
+```
+  $ npm install --save react-router
+```
 
-1. Clone this repo
-2. Inside cloned repo run `npm install`
-3. If you want to run tests: `npm test` or `npm run testonly` or `npm run test-watch`. You need to write tests in `__tests__` folder. You need at least Node 4 on your machine to run tests.
-4. If you want to run linting: `npm test` or `npm run lint`. Fix bugs: `npm run lint-fix`. You can adjust your `.eslintrc` config file.
-5. If you want to run transpilation to ES5 in `dist` folder: `npm run prepublish` (standard npm hook).
+### Use
 
-## Blog post about it:
+To utilize the `featureFlagsReducer`, you must first import it into your project and combine with your other project reducers using Redux's `combineReducers` method:
 
-- [Creating React NPM packages with ES2015](http://julian.io/creating-react-npm-packages-with-es2015/)
+```js
+import { combineReducers } from 'redux';
+import { featureFlagsReducer } from 'react-redux-feature-flags';
 
-## Also check out
+import otherReducer from './otherReducer';
 
-- [React Alert UI component](https://github.com/juliancwirko/react-s-alert)
-- [React project boilerplate with Webpack, HMR, React Router](https://github.com/juliancwirko/react-boilerplate)
+const rootReducer = combineReducers({
+	otherReducer,
+	features: featureFlagsReducer,
+});
 
-## License
+export default rootReducer;
+``` 
 
-MIT
+It is recommended that you create a `features.js` file in the root directory of your project:
+
+```js
+  const features = {
+    someFeature: true,
+    someOtherFeature: false
+  }
+
+  export default features;
+```
+
+You can then import your features into to your `index.js` file (example using ES6) and pass them to the dispatchable `addFeatureFlags` method:
+
+```js
+  import { addFeatureFlags } from 'react-redux-feature-flags';
+
+  import features from './features';
+
+  /***************************
+  * Initialize Feature Flags
+  ****************************/
+  store.dispatch(addFeatureFlags(features));
+```
+
+Finally, you can wrap your feature in the `Feature` component and pass it a flag defined in your `features.js`. If the flag is truthy, the children of the `Feature` component will render:
+
+```jsx
+  <Feature flag="someFeature">
+    <Link to="/link/will/render" />
+  </Feature>
+  <Feature flag="someOtherFeature">
+    <Link to="/link/will/not/render" />
+  </Feature>
+```
