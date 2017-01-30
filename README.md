@@ -8,7 +8,7 @@ This package works with React and Redux to provide an easy-to-use feature wrappi
 
 Using [npm](https://www.npmjs.com/):
 ```
-  $ npm install --save react-router
+  $ npm install --save react-redux-feature-flags
 ```
 
 ## Setup
