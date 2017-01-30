@@ -1,11 +1,17 @@
 # Feature Flag Component for React/Redux
 
+### Purpose
+
+This package works with React and Redux to provide an easy-to-use feature wrapping component.
+
 ### Installation
 
 Using [npm](https://www.npmjs.com/):
 ```
   $ npm install --save react-router
 ```
+
+### Use
 
 To utilize the `featureFlagsReducer`, you must first import it into your project and combine with your other project reducers using Redux's `combineReducers` method:
 
