@@ -3,8 +3,9 @@
 ### Installation
 
 Using [npm](https://www.npmjs.com/):
-
+```
   $ npm install --save react-router
+```
 
 To utilize the `featureFlagsReducer`, you must first import it into your project and combine with your other project reducers using Redux's `combineReducers` method:
 
